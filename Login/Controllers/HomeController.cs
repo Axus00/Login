@@ -21,6 +21,14 @@ public class HomeController : Controller
         return View(await _context.Employees.ToListAsync());
     }
 
+    [HttpPost]
+    public ActionResult Click(string hora)
+    {
+        string horaCapturada = DateTime.Now.ToString();
+        ViewBag.hour = horaCapturada;
+        
+        return View("Index");
+    }
 
     
 
