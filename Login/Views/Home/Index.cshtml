@@ -15,9 +15,11 @@
     </div>
 
   <div class="buttons mb-5">
-      <form class="form" method="post" asp-action="Click">
+      <form class="form" method="post" asp-action="Entry">
           <button class="btn btn-sm btn-dark" type="submit">Add Entry hour</button>
-          <button class="btn btn-sm btn-dark" type="submit">Add Departure hour</button>
+      </form>
+      <form class="form" method="post" asp-action="Out">
+          <button class="btn btn-sm btn-dark" type="submit" asp-action="Out">Add Departure hour</button>
       </form>
   </div>
 
@@ -30,8 +32,8 @@
         </thead>
         <tbody>
             <tr>
-                <td>@ViewBag.hour</td>
-                <td>@ViewBag.hour</td>
+                <td>@ViewBag.hora</td>
+                <td>@ViewBag.hourSalida</td>
             </tr>
         </tbody>
     </table>
@@ -59,7 +61,7 @@
 
             <ul class="logout">
                 <li>
-                   <a asp-controller="Login" asp-action="Login">
+                   <a asp-controller="Login" asp-action="Logout">
                          <i class="fa fa-power-off fa-2x"></i>
                         <span class="nav-text">
                             Logout

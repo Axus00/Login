@@ -12,8 +12,5 @@ public class Employee
     public string Identified { get; set; }
     public string Phone { get; set; }
     public string Email { get; set; }
-
-    public DateTime? EntryDate { get; set; }
-
-    public DateTime? OutDate { get; set; }
+    
 }
