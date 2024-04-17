@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+@{
+    Layout = Layout;
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true"/>
+</head>
+<body>
+
+
+<div class="container-fluid mt-5">
+    <h1 class="text-center text-light mb-3">Login</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card login-create">
+                <div class="card-body">
+                    <h2 class="text-center">Add date of login</h2>
+                    <form class="form" method="get" asp-action="Login">
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <input class="form-control" type="text" placeholder="Email..." name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label>Paswword</label>
+                            <input class="form-control" type="password" placeholder="Password..." name="password">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Do you want save login?</label>
+                            <input class="form-check-input" type="checkbox">
+                        </div>
+
+
+                        <button class="btn btn-lg btn-success w-100" type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        @ViewBag.ErrorMessage
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+﻿@model Employee
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+
+<div>
+    ViewBag.Message
+</div>
+
+<div class="container-fluid">
+    <h1 class="text-center mb-5">Sign Up</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card login-create">
+                <div class="card-body ">
+                    <form class="form" method="post" enctype="multipart/form-data" asp-action="Index">
+                        <div class="mb-3">
+                            <label asp-for="Names">Names</label>
+                            <input class="form-control" type="text" placeholder="Names..." asp-for="Names">
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <label asp-for="LastNames">LastNames</label>
+                                <input class="form-control" type="text" placeholder="LastNames..." asp-for="LastNames">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <div class="input-group d-flex align-items-center">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-lg p-2"><i class="fa-solid fa-lock"></i></div>
+                                        </div>
+                                        <input asp-for="Password" type="password" class="form-control" id="inlineFormInputGroupUsername" placeholder="Password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <div class="input-group d-flex align-items-center">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-lg p-2"><i class="fa-solid fa-image"></i></div>
+                                        </div>
+                                        <input asp-for="Photo" type="file" class="form-control" id="inlineFormInputGroupUsername" name="archivo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="ubicacion">
+                                <option value="0">Images</option>
+                                <option value="1">Documents</option>
+                                <option value="2">Uploads</option>
+                                <option value="3">Temporal</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label asp-for="TypeIdentification">TypeIdentification</label>
+                                    <select class="form-select" asp-for="TypeIdentification">
+                                        <option value="Select option">Select option</option>
+                                        <option value="CC">CC</option>
+                                        <option value="TI">TI</option>
+                                        <option value="CE">CE</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label asp-for="Identified">Identified</label>
+                                <input class="form-control" type="text" placeholder="Indentified" asp-for="Identified">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <div class="input-group d-flex align-items-center">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-lg p-2"><i class="fa-solid fa-phone"></i></div>
+                                        </div>
+                                        <input asp-for="Phone" type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Phone">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <div class="input-group d-flex align-items-center">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-lg p-2"><i class="fa-solid fa-envelope"></i></div>
+                                        </div>
+                                        <input asp-for="Email" type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Email">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-lg btn-dark w-100" type="submit">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

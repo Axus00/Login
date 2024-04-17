@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - Login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true"/>
+    
+    <!--Icons Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!--Bootstrap-->
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="~/Login.styles.css" asp-append-version="true"/>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow ">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Login</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        
+                    </li>
+                </ul>
+            </div>
+            
+            <a class="btn btn-sm btn-dark mx-2" asp-controller="Create" asp-action="Index">Sign up</a>
+            
+        </div>
+    </nav>
+    
+    <!--Contenido solo para home-->
+    @RenderSection("CustomSection", required: false)
+    <!--Contenido solo para home-->
+</header>
+
+<!--SideBar Nav-->
+@*<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="bg-dark col-auto col-md-2 min-vh-100 d-flex flex-column justify-content-between">
+            <div class="bg-dark p-2">
+                <a class="d-flex text-decoration-none mt-1 align-items-center text-white">
+                    <span class="fs-4 d-none d-sm-inline"> SideMenu</span>
+                </a>
+                <ul class="nav nav-pills flex-column mt-4">
+                    <li class="nav-item">
+                        <a href="#" class="text-white nav-link">
+                            <i class="bi bi-house-door"> <span class="d-none ms-3 d-sm-inline">Dashboard</span></i>
+                        </a>
+                    </li>
+                    <li class="nav-item py-2 py-sm-0">
+                        <a href="#" class="text-white nav-link">
+                            <i class="bi bi-building"> <span class="d-none ms-3 d-sm-inline">Ver Empresas</span></i>
+                        </a>
+                        
+                    </li>
+                    <li class="nav-item py-2 py-sm-0">
+                        <a href="#" class="text-white nav-link">
+                            <i class="bi bi-card-list"> <span class=" d-none ms-3 d-sm-inline">Crear Empresa</span></i>
+                        </a>
+                        
+                    </li>
+                    
+                    <li class="nav-item py-2 py-sm-0">
+                        <a href="#" class="text-white nav-link">
+                            <i class="bi bi-person-workspace"> <span class=" d-none ms-3 d-sm-inline">Ver Trabajo</span></i>
+                        </a>
+                                            
+                    </li>
+                    
+                    
+                    <li class="nav-item py-2 py-sm-0">
+                        <a href="#" class="text-white nav-link">
+                            <i class="bi bi-card-list"> <span class=" d-none ms-3 d-sm-inline">Crear trabajo</span></i>
+                        </a>
+                                            
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <main role="main" >
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+</div>*@
+
+<div class="container">
+    <main role="main" >
+        @RenderBody()
+    </main>
+</div>
+
+@*<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2024 - Login
+    </div>
+</footer>*@
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
