@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Login.Controllers;
 using Login.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Login.Controllers;
 
@@ -16,36 +17,19 @@ public class HomeController : Controller
     }
     
 
+    [Authorize]
     public async Task<IActionResult> Index()
     {
         var cookie = HttpContext.Request.Cookies["UserAuth"];
-        var horaEntrada = HttpContext.Request.Cookies["Hora"];
-
-        if (horaEntrada != null)
-        {
-            @ViewBag.hora = horaEntrada;
-        }
+        var UserName = HttpContext.Request.Cookies["NameUser"];
+        
         @ViewBag.saveCookie = cookie;
+        @ViewBag.User = UserName;
         return View(await _context.Employees.ToListAsync());
     }
 
     //variable
-    [HttpPost]
-    public async Task<IActionResult>  Entry()
-    {
-        var cookie = HttpContext.Request.Cookies["UserAuth"];
-        Hour myHours = new()
-        {
-            EntryDate = DateTime.Now,
-            OutDate = null,
-            EmployeeId = Convert.ToInt32(cookie)
-
-        };
-        Console.WriteLine($"AQUI HAY ALGO PUTA : {myHours.Id}");
-        HttpContext.Response.Cookies.Append("Enter", Convert.ToString(myHours.Id));
-        
-        return View("Index");
-    }
+    
     
 
     

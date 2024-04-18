@@ -3,6 +3,7 @@ using Login.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Login.Controllers;
 
@@ -14,6 +15,9 @@ public class LoginController : Controller
     {
         _context = context;
     }
+    
+    
+    [Authorize]
     //vistas
     public IActionResult Index()
     {
@@ -23,29 +27,36 @@ public class LoginController : Controller
     [HttpGet]
     public async Task<IActionResult>  Login(string email, string password)
     {
-        var usuario =await _context.Employees.FirstOrDefaultAsync(e => e.Email == email && e.Password == password);
+        var usuario = await _context.Employees.FirstOrDefaultAsync(e => e.Email == email && e.Password == password);
 
+        
+        
         if (usuario != null)
         {
+            Employee information = new()
+            {
+                Names = usuario.Names
+            };
+            
+            //configuración de las cookies
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTime.Now.AddDays(1),
+                HttpOnly = true,
+                Secure = true
+            };
+            
+            
             var id = usuario.Id.ToString();
             ViewBag.Message = "Login is already";
-            HttpContext.Response.Cookies.Append("UserAuth", id);
             
-            Hour myHours = new()
-            {
-                EntryDate = DateTime.Now,
-                OutDate = null,
-                EmployeeId = Convert.ToInt32(usuario.Id)
-
-            };
-
-            _context.Hours.Add(myHours);
-             _context.SaveChanges();
             
-            Console.WriteLine($"AQUI HAY ALGO : {usuario.Id}");
-            HttpContext.Response.Cookies.Append("Enter", Convert.ToString(usuario.Id));
+            HttpContext.Response.Cookies.Append("UserAuth", id, cookieOptions);
+            HttpContext.Response.Cookies.Append("NameUser", usuario.Names, cookieOptions);
 
             ViewData["Log"] = usuario.Id;
+            
+            _context.SaveChanges();
             
             return RedirectToAction("Index", "Home");
         }
@@ -61,19 +72,11 @@ public class LoginController : Controller
     
     public async Task<IActionResult> Logout()
     {
-        var cookiesOut =  HttpContext.Request.Cookies["Enter"];
-
-        int logout = Convert.ToInt32(ViewData["Log"]);
-        Console.WriteLine($"ESCUHEMEEEEEEE :D : :D :  {ViewData["Log"]}");
-        var historial = await _context.Hours.FirstOrDefaultAsync(h => h.Id == logout);
-        Console.WriteLine($"Aqui va el resultado del historia: {historial}");
-        historial.OutDate = DateTime.Now;
         
+        HttpContext.Response.Cookies.Delete("UserAuth");
+        HttpContext.Response.Cookies.Delete("NameUser");
         
         _context.SaveChanges();
-        HttpContext.Response.Cookies.Delete("Enter");
-        HttpContext.Response.Cookies.Delete("UserAuth");
-        
         return RedirectToAction("Index", "Login");
     }
 }
