@@ -12,4 +12,7 @@ public class BaseContext : DbContext
     
     //conectamos Models
     public DbSet<Employee> Employees { get; set; }
+    public DbSet<Hour> Hours { get; set; }
+    
+    
 }

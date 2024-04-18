@@ -31,29 +31,22 @@ public class HomeController : Controller
 
     //variable
     [HttpPost]
-    public async Task<IActionResult>  Entry(Employee hora)
+    public async Task<IActionResult>  Entry()
     {
-        
-        var HoraEntrada = DateTime.Now.ToString();
-        HttpContext.Response.Cookies.Append("Hora", HoraEntrada);
-        _context.Employees.Add(hora);
-        await _context.SaveChangesAsync();
-        
-        
-        return View("Index");
-    }
+        var cookie = HttpContext.Request.Cookies["UserAuth"];
+        Hour myHours = new()
+        {
+            EntryDate = DateTime.Now,
+            OutDate = null,
+            EmployeeId = Convert.ToInt32(cookie)
 
-    [HttpPost]
-    public async Task<IActionResult> Out(Employee horaSalida)
-    {
-        var hora = DateTime.Now.ToString();
-        HttpContext.Response.Cookies.Append("HoraSalida", hora);
-        _context.Employees.Add(horaSalida);
-        await _context.SaveChangesAsync();
-        
+        };
+        Console.WriteLine($"AQUI HAY ALGO PUTA : {myHours.Id}");
+        HttpContext.Response.Cookies.Append("Enter", Convert.ToString(myHours.Id));
         
         return View("Index");
     }
+    
 
     
 

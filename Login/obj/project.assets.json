@@ -719,19 +719,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\fjgt2\\.nuget\\packages\\": {}
+    "/Users/santiagocardona/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fjgt2\\Downloads\\UserCrud\\Login\\Login.csproj",
+      "projectUniqueName": "/Users/santiagocardona/Documents/C#/API/Login/Login/Login.csproj",
       "projectName": "Login",
-      "projectPath": "C:\\Users\\fjgt2\\Downloads\\UserCrud\\Login\\Login.csproj",
-      "packagesPath": "C:\\Users\\fjgt2\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fjgt2\\Downloads\\UserCrud\\Login\\obj\\",
+      "projectPath": "/Users/santiagocardona/Documents/C#/API/Login/Login/Login.csproj",
+      "packagesPath": "/Users/santiagocardona/.nuget/packages/",
+      "outputPath": "/Users/santiagocardona/Documents/C#/API/Login/Login/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\fjgt2\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/santiagocardona/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -788,7 +788,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

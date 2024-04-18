@@ -30,6 +30,23 @@ public class LoginController : Controller
             var id = usuario.Id.ToString();
             ViewBag.Message = "Login is already";
             HttpContext.Response.Cookies.Append("UserAuth", id);
+            
+            Hour myHours = new()
+            {
+                EntryDate = DateTime.Now,
+                OutDate = null,
+                EmployeeId = Convert.ToInt32(usuario.Id)
+
+            };
+
+            _context.Hours.Add(myHours);
+             _context.SaveChanges();
+            
+            Console.WriteLine($"AQUI HAY ALGO : {usuario.Id}");
+            HttpContext.Response.Cookies.Append("Enter", Convert.ToString(usuario.Id));
+
+            ViewData["Log"] = usuario.Id;
+            
             return RedirectToAction("Index", "Home");
         }
         else
@@ -37,13 +54,26 @@ public class LoginController : Controller
             ViewBag.ErrorMessage = "The information isn't available";
             return RedirectToAction("Index", "Login");
         }
+        
+        
 
     }
     
-    public IActionResult Logout()
+    public async Task<IActionResult> Logout()
     {
+        var cookiesOut =  HttpContext.Request.Cookies["Enter"];
+
+        int logout = Convert.ToInt32(ViewData["Log"]);
+        Console.WriteLine($"ESCUHEMEEEEEEE :D : :D :  {ViewData["Log"]}");
+        var historial = await _context.Hours.FirstOrDefaultAsync(h => h.Id == logout);
+        Console.WriteLine($"Aqui va el resultado del historia: {historial}");
+        historial.OutDate = DateTime.Now;
         
+        
+        _context.SaveChanges();
+        HttpContext.Response.Cookies.Delete("Enter");
         HttpContext.Response.Cookies.Delete("UserAuth");
+        
         return RedirectToAction("Index", "Login");
     }
 }
