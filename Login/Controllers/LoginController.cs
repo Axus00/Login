@@ -70,8 +70,7 @@ public class LoginController : Controller
             
             HttpContext.Response.Cookies.Append("UserAuth", id, cookieOptions);
             HttpContext.Response.Cookies.Append("NameUser", usuario.Names, cookieOptions);
-
-            ViewData["Log"] = usuario.Id;
+            
             
             _context.SaveChanges();
             

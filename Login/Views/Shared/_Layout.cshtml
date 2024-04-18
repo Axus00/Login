@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -33,7 +34,9 @@
                 </ul>
             </div>
             
-            <a class="btn btn-sm btn-dark mx-2" asp-controller="Create" asp-action="Index">Sign up</a>
+            <!--Botón profile-->
+            @RenderSection("button", required: false)
+            <!--Botón profile-->
             
         </div>
     </nav>

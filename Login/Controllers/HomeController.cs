@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Login.Controllers;
 
-//[Authorize]
+[Authorize(Roles = "Employee")]
 public class HomeController : Controller
 {
     private readonly BaseContext _context;
@@ -30,8 +30,4 @@ public class HomeController : Controller
     //variable
     
     
-
-    
-
-   
 }

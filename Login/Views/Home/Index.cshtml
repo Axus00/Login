@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -10,11 +9,20 @@
 
 </head>
   <body>
-    <div>
-        <h1 class="text-center mt-5">Welcome User @ViewBag.User / @ViewBag.saveCookie</h1>
-    </div>
-
-    <table class="table table-striped table-bordered table-hover text-center">
+  <div>
+      <h1 class="text-center mt-5">Welcome User @ViewBag.User / @ViewBag.saveCookie</h1>
+  </div>
+  
+  @if (User.IsInRole("Admin"))
+  {
+      @section button
+      {
+          <a class="btn btn-sm btn-dark mx-2" asp-controller="Create" asp-action="Index">Sign up</a>
+          <a class="btn btn-sm btn-dark mx-2" asp-controller="Employees" asp-action="Details">Profile</a>
+      }   
+  }
+  
+  <table class="table table-striped table-bordered table-hover text-center">
         <thead class="table table-dark">
             <tr>
                 <td>Entry hour</td>
@@ -38,7 +46,6 @@
                            Employee Details
                         </span>
                     </a>
-                  
                 </li>
                 <li>
                    <a href="#">
