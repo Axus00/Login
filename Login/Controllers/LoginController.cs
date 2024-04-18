@@ -61,7 +61,7 @@ public class LoginController : Controller
                 new ClaimsPrincipal(claimsIdentity));
             
             //Configuración de la session caché
-            
+            HttpContext.Session.SetString("Sesion", usuario.Id.ToString());
             
             Employee information = new()
             {
@@ -108,6 +108,7 @@ public class LoginController : Controller
         HttpContext.Response.Cookies.Delete("UserAuth");
         HttpContext.Response.Cookies.Delete("NameUser");
         HttpContext.Response.Cookies.Delete("Hour");
+        HttpContext.Session.Remove("sesion");
         
         //Borramos el caché de la sesión
         
