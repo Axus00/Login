@@ -2,6 +2,7 @@ using Login.Data;
 using Login.Helpers;
 using Login.Providers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<HelperUploadFiles>();
 builder.Services.AddSingleton<PathProviders>();
 builder.Services.AddControllersWithViews();
+
+//Configuramos servicio de cookies / seguridad
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(option =>
+    {
+        option.LoginPath = "/Login/Index";
+        option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        option.AccessDeniedPath = "/Home/Privacy";
+    });
 
 //conexión a la Db
 builder.Services.AddDbContext<BaseContext>(options =>
@@ -33,10 +43,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//Agregamos la autenticación 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Login}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

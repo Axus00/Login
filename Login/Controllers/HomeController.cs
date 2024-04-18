@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Login.Controllers;
 
+//[Authorize]
 public class HomeController : Controller
 {
     private readonly BaseContext _context;
@@ -16,8 +17,6 @@ public class HomeController : Controller
         _context = context;
     }
     
-
-    [Authorize]
     public async Task<IActionResult> Index()
     {
         var cookie = HttpContext.Request.Cookies["UserAuth"];

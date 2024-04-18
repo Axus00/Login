@@ -3,7 +3,9 @@ using Login.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;//se agrega librería de cookies
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace Login.Controllers;
 
@@ -17,7 +19,6 @@ public class LoginController : Controller
     }
     
     
-    [Authorize]
     //vistas
     public IActionResult Index()
     {
@@ -33,6 +34,22 @@ public class LoginController : Controller
         
         if (usuario != null)
         {
+            //configuramos roles
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, usuario.Names),
+                new Claim("Correo", usuario.Email)
+            };
+            foreach (string rol in usuario.Roles) //se definen roles de los usuarios
+            {
+                claims.Add(new Claim(ClaimTypes.Role, rol));
+            }
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity));
+            
             Employee information = new()
             {
                 Names = usuario.Names
@@ -72,6 +89,9 @@ public class LoginController : Controller
     
     public async Task<IActionResult> Logout()
     {
+        
+        //Limpiamos cookies
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         
         HttpContext.Response.Cookies.Delete("UserAuth");
         HttpContext.Response.Cookies.Delete("NameUser");

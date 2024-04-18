@@ -4,9 +4,12 @@ using Login.Models;
 using Login.Providers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Login.Controllers;
 
+
+[Authorize(Roles = "Employee")]
 public class CreateController : Controller
 {
     private readonly BaseContext _context;
