@@ -12,6 +12,16 @@ builder.Services.AddSingleton<HelperUploadFiles>();
 builder.Services.AddSingleton<PathProviders>();
 builder.Services.AddControllersWithViews();
 
+//configuración de session para limpiar caché
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 //Configuramos servicio de cookies / seguridad
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(option =>
@@ -43,10 +53,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+
 //Agregamos la autenticación 
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+//Sessio
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

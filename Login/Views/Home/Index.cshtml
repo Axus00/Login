@@ -31,31 +31,50 @@
         </thead>
         <tbody>
             <tr>
-                <td>@ViewBag.hora</td>
+                <td>@ViewBag.saveEntry</td>
                 <td>@ViewBag.hourSalida</td>
             </tr>
         </tbody>
     </table>
 
-    <div class="area"></div><nav class="main-menu nav">
-            <ul>
-                <li class="mt-5">
-                    <a asp-controller="Employees" asp-action="Index">
-                        <i class="fa fa-home fa-2x"></i>
-                        <span class="nav-text">
-                           Employee Details
-                        </span>
-                    </a>
-                </li>
-                <li>
-                   <a href="#">
-                       <i class="fa fa-cogs fa-2x"></i>
-                        <span class="nav-text">
-                            Settings
-                        </span>
-                    </a>
-                </li>
-            </ul>
+  <div class="area"></div>
+        <nav class="main-menu nav">
+            
+                @if (User.IsInRole("Admin"))
+                {
+                    <ul>
+                        <li class="mt-5">
+                            <a asp-controller="Employees" asp-action="Index">
+                                <i class="fa fa-home fa-2x"></i>
+                                <span class="nav-text">
+                                    Employee Details
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img class="mx-2  w-75 h-75" src="~/images/Account.png" alt="Icono">
+                                <span class="nav-text">
+                                    Create Account
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                }
+                @if (User.IsInRole("Employee"))
+                {
+                    <ul>
+                        <li class="mt-5">
+                            <a asp-controller="Employees" asp-action="Index">
+                                <i class="fa fa-home fa-2x"></i>
+                                <span class="nav-text">
+                                    Employee Details
+                                </span>
+                            </a>
+                        </li> 
+                    </ul>
+                }
+                
 
             <ul class="logout">
                 <li>

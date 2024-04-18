@@ -10,9 +10,10 @@
 </head>
 <body>
 
-<div>
-    ViewBag.Message
-</div>
+@section Back
+{
+    <a class="btn btn-sm btn-dark" asp-controller="Home" asp-action="Index">Back Home</a>
+}
 
 <div class="container-fluid">
     <h1 class="text-center mb-5">Sign Up</h1>
@@ -102,7 +103,7 @@
                         </div>
                         <div class="mb-3">
                             <label asp-for="Roles">Rol</label>
-                            <input type="text" placeholder="Write rol..." asp-for="Roles">
+                            <input class="form-control" type="text" placeholder="Write rol..." asp-for="Roles">
                         </div>
                         <button class="btn btn-lg btn-dark w-100" type="submit">Sign Up</button>
                     </form>

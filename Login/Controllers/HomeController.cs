@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Login.Controllers;
 
-[Authorize(Roles = "Employee")]
+[Authorize(Roles = "Employee, Admin")]
 public class HomeController : Controller
 {
     private readonly BaseContext _context;
@@ -19,11 +19,14 @@ public class HomeController : Controller
     
     public async Task<IActionResult> Index()
     {
+        //Recolectamos las Cookies
         var cookie = HttpContext.Request.Cookies["UserAuth"];
         var UserName = HttpContext.Request.Cookies["NameUser"];
+        var Hour = HttpContext.Request.Cookies["Hour"];
         
         @ViewBag.saveCookie = cookie;
         @ViewBag.User = UserName;
+        @ViewBag.saveEntry = Hour;
         return View(await _context.Employees.ToListAsync());
     }
 

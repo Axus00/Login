@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SgTYQccfWDnD4iWPBIfSqhcBvGd9BnVeXPLTpdHvp+c=",
+  "Hash": "Jmp/J/MB5GdN6SieCIV9KzfaL0bwrCQkze++TrIIL9k=",
   "Source": "Login",
   "BasePath": "_content/Login",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\fjgt2\\Downloads\\Login\\Login\\wwwroot\\images\\Account.png",
+      "SourceId": "Login",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\fjgt2\\Downloads\\Login\\Login\\wwwroot\\",
+      "BasePath": "_content/Login",
+      "RelativePath": "images/Account.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Account.png"
     },
     {
       "Identity": "C:\\Users\\fjgt2\\Downloads\\Login\\Login\\wwwroot\\images\\profile.jpg",

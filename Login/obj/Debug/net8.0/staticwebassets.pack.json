@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\fjgt2\\Downloads\\Login\\Login\\wwwroot\\images\\Account.png",
+      "PackagePath": "staticwebassets\\images\\Account.png"
+    },
+    {
       "Id": "C:\\Users\\fjgt2\\Downloads\\Login\\Login\\wwwroot\\images\\profile.jpg",
       "PackagePath": "staticwebassets\\images\\profile.jpg"
     },

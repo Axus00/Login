@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;//se agrega librería de cookies
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace Login.Controllers;
 
@@ -26,11 +27,20 @@ public class LoginController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult>  Login(string email, string password)
+    public async Task<IActionResult>  Login(string email, string password, string hora)
     {
         var usuario = await _context.Employees.FirstOrDefaultAsync(e => e.Email == email && e.Password == password);
 
+        var UserEntry = DateTime.Now.ToString();//variable global
+
+        _context.SaveChangesAsync();
         
+        //Objeto para Employee
+        Hour hour = new Hour()
+        {
+            EntryDate = DateTime.Now,
+            OutDate = null
+        };
         
         if (usuario != null)
         {
@@ -49,6 +59,9 @@ public class LoginController : Controller
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity));
+            
+            //Configuración de la session caché
+            
             
             Employee information = new()
             {
@@ -70,7 +83,7 @@ public class LoginController : Controller
             
             HttpContext.Response.Cookies.Append("UserAuth", id, cookieOptions);
             HttpContext.Response.Cookies.Append("NameUser", usuario.Names, cookieOptions);
-            
+            HttpContext.Response.Cookies.Append("Hour", UserEntry, cookieOptions);
             
             _context.SaveChanges();
             
@@ -94,6 +107,10 @@ public class LoginController : Controller
         
         HttpContext.Response.Cookies.Delete("UserAuth");
         HttpContext.Response.Cookies.Delete("NameUser");
+        HttpContext.Response.Cookies.Delete("Hour");
+        
+        //Borramos el caché de la sesión
+        
         
         _context.SaveChanges();
         return RedirectToAction("Index", "Login");

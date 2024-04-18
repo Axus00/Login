@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Login.Controllers;
 
 
-[Authorize(Roles = "Employee")]
+[Authorize(Roles = "Admin")]
 public class CreateController : Controller
 {
     private readonly BaseContext _context;
