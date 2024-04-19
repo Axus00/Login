@@ -19,6 +19,7 @@ public class HomeController : Controller
     
     public async Task<IActionResult> Index()
     {
+        var user = await _context.Hours.Where(e => e.EmployeeId.ToString() == HttpContext.Session.GetString("Sesion")).ToListAsync();
         //Recolectamos las Cookies
         var cookie = HttpContext.Request.Cookies["UserAuth"];
         var UserName = HttpContext.Request.Cookies["NameUser"];
@@ -27,7 +28,7 @@ public class HomeController : Controller
         @ViewBag.saveCookie = cookie;
         @ViewBag.User = UserName;
         @ViewBag.saveEntry = Hour;
-        return View(await _context.Employees.ToListAsync());
+        return View(user);
     }
 
     public IActionResult Privacy()

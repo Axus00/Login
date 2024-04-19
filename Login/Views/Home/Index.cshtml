@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -30,10 +31,13 @@
             </tr>
         </thead>
         <tbody>
+        @foreach (var e in Model)
+        {
             <tr>
-                <td>@ViewBag.saveEntry</td>
-                <td>@ViewBag.hourSalida</td>
+                <td>@e.EntryDate</td>
+                <td>@e.OutDate</td>
             </tr>
+        }
         </tbody>
     </table>
 

@@ -27,13 +27,21 @@ public class LoginController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult>  Login(string email, string password, string hora)
+    public async Task<IActionResult>  Login(string email, string password, Hour hora, Hour hourOut)
     {
         var usuario = await _context.Employees.FirstOrDefaultAsync(e => e.Email == email && e.Password == password);
 
         var UserEntry = DateTime.Now.ToString();//variable global
+        var UserOut = DateTime.Now.ToString();
 
-        _context.SaveChangesAsync();
+        hora.EntryDate = DateTime.Now;
+        hora.EmployeeId = usuario.Id;
+
+        hourOut.OutDate = DateTime.Now;
+        hourOut.EmployeeId = usuario.Id;
+        
+        _context.Hours.Add(hora);
+        _context.Hours.Update(hourOut);
         
         //Objeto para Employee
         Hour hour = new Hour()
@@ -84,6 +92,7 @@ public class LoginController : Controller
             HttpContext.Response.Cookies.Append("UserAuth", id, cookieOptions);
             HttpContext.Response.Cookies.Append("NameUser", usuario.Names, cookieOptions);
             HttpContext.Response.Cookies.Append("Hour", UserEntry, cookieOptions);
+            HttpContext.Response.Cookies.Append("HourOut", UserOut, cookieOptions);
             
             _context.SaveChanges();
             
@@ -108,6 +117,7 @@ public class LoginController : Controller
         HttpContext.Response.Cookies.Delete("UserAuth");
         HttpContext.Response.Cookies.Delete("NameUser");
         HttpContext.Response.Cookies.Delete("Hour");
+        HttpContext.Response.Cookies.Delete("HourOut");
         HttpContext.Session.Remove("sesion");
         
         //Borramos el caché de la sesión
