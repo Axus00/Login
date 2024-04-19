@@ -1,6 +1,21 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<!doctype html>
+<html lang="en">
+<head>
+
+</head>
+<body class="bg-dark">
+  <h1 class="text-center text-danger mt-5">@ViewData["Title"]</h1>
+    
+    <div class="text-center text-light">
+        <h1 class="mt-5">No tienes permitido eliminar datos</h1>
+        
+        <a class="btn btn-lg btn-success mt-5" asp-controller="Employees" asp-action="Index">Go Back to Page</a>
+    </div>
+  
+
+</body>
+</html>

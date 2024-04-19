@@ -31,6 +31,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         option.AccessDeniedPath = "/Home/Privacy";
     });
 
+
+
 //conexión a la Db
 builder.Services.AddDbContext<BaseContext>(options =>
     options.UseMySql(

@@ -1,9 +1,11 @@
 ﻿using Login.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Login.Controllers;
 
+[Authorize(Roles = "Admin, Employee")]
 public class EmployeesController : Controller
 {
     private readonly BaseContext _context;
@@ -19,6 +21,7 @@ public class EmployeesController : Controller
         return View(await _context.Employees.ToListAsync());
     }
     
+    [Authorize(Roles = "Admin")]
     //Delete
     public async Task<IActionResult> Delete(int? id)
     {
@@ -30,6 +33,7 @@ public class EmployeesController : Controller
     }
     
     //Details
+    [Authorize(Roles = "Admin, Employee")]
     public async Task<IActionResult> Details(int? id)
     {
         return View(await _context.Employees.FirstOrDefaultAsync(e => e.Id == id));

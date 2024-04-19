@@ -30,6 +30,11 @@ public class HomeController : Controller
         return View(await _context.Employees.ToListAsync());
     }
 
+    public IActionResult Privacy()
+    {
+        return View();
+    }
+
     //variable
     
     

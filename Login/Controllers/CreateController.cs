@@ -23,6 +23,7 @@ public class CreateController : Controller
     }
     
     //vista
+    [Authorize(Roles = "Admin")]
     public IActionResult Index()
     {
         return View();
