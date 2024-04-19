@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
+
 namespace Login.Controllers;
 
 
@@ -22,18 +23,24 @@ public class CreateController : Controller
         _helperUploadFiles = helperUploadFiles;
     }
     
+    
     //vista
     [Authorize(Roles = "Admin")]
     public IActionResult Index()
     {
         return View();
     }
+    
+    
 
     [HttpPost]
     public async Task<IActionResult> Index(Employee employee, IFormFile archivo, int ubicacion)
     {
         string nombreArchivo = archivo.FileName;
         string path = "";
+
+        
+        
         
         switch (ubicacion)
         {

@@ -8,15 +8,18 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
+
 namespace Login.Controllers;
 
 public class LoginController : Controller
 {
     private readonly BaseContext _context;
+    
 
     public LoginController(BaseContext context)
     {
         _context = context;
+        
     }
     
     
@@ -30,7 +33,8 @@ public class LoginController : Controller
     public async Task<IActionResult>  Login(string email, string password, Hour hora, Hour hourOut)
     {
         var usuario = await _context.Employees.FirstOrDefaultAsync(e => e.Email == email && e.Password == password);
-
+        
+        
         var UserEntry = DateTime.Now.ToString();//variable global
         var UserOut = DateTime.Now.ToString();
 

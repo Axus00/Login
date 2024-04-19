@@ -19,7 +19,6 @@
       @section button
       {
           <a class="btn btn-sm btn-dark mx-2" asp-controller="Create" asp-action="Index">Sign up</a>
-          <a class="btn btn-sm btn-dark mx-2" asp-controller="Employees" asp-action="Details">Profile</a>
       }   
   }
   
@@ -56,7 +55,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a asp-controller="Create" asp-action="Index">
                                 <img class="mx-2  w-75 h-75" src="~/images/Account.png" alt="Icono">
                                 <span class="nav-text">
                                     Create Account
