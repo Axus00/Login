@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;//se agrega librería de cookies
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using Login.Clases;
 using Microsoft.AspNetCore.Http;
 
 
@@ -31,25 +32,25 @@ public class LoginController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult>  Login(string email, string password, Hour hora)
+    public async Task<IActionResult>  Login(string email, string password, Hour hora, Employee employee)
     {
         var usuario = await _context.Employees.FirstOrDefaultAsync(e => e.Email == email && e.Password == password);
 
         
-        
         var UserEntry = DateTime.Now.ToString();//variable global
         
-
-        hora.EntryDate = DateTime.Now;
-        hora.EmployeeId = usuario.Id;
-        
-        _context.Hours.Add(hora);
-
-        Console.WriteLine("Se agregó la hora");
         
         
         if (usuario != null)
         {
+            hora = new Hour();
+            hora.EntryDate = DateTime.Now;
+            hora.EmployeeId = usuario.Id;
+            
+            _context.Hours.Add(hora);
+            
+            
+            
             //configuramos roles
             var claims = new List<Claim>
             {
@@ -87,22 +88,33 @@ public class LoginController : Controller
             HttpContext.Response.Cookies.Append("NameUser", usuario.Names, cookieOptions);
             HttpContext.Response.Cookies.Append("Hour", UserEntry, cookieOptions);
             HttpContext.Response.Cookies.Append("EmployeeId", usuario.Id.ToString(), cookieOptions);
-
-            
             
             _context.SaveChanges();
-            
+            Console.WriteLine("estoy");
             return RedirectToAction("Index", "Home");
         }
-        else
+        
+        //Desencriptar password
+        string passwordSave = employee.Password;
+
+        string decryptPassword = EncryptPassword.DesencriptarPassword(passwordSave, 3);
+        
+        
+        //check the password
+        if (passwordSave == decryptPassword)
         {
-            ViewBag.ErrorMessage = "The information isn't available";
-            return RedirectToAction("Index", "Login");
+            ViewBag.Message = "Login is already";
+            Console.WriteLine("Se ingresó correctamente");
+                
+                
+            return RedirectToAction("Index", "Home");
         }
         
+        return RedirectToAction("Index", "Login");
 
     }
     
+    //Logout Session
     public async Task<IActionResult> Logout(Hour exit)
     {
         
@@ -127,6 +139,7 @@ public class LoginController : Controller
                     HttpContext.Response.Cookies.Delete("UserAuth");
                     HttpContext.Response.Cookies.Delete("NameUser");
                     HttpContext.Response.Cookies.Delete("Hour");
+                    HttpContext.Response.Cookies.Delete("EmployeeId");
                     HttpContext.Session.Remove("Sesion");
                     
                 
