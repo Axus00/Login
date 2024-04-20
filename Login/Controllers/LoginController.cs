@@ -1,4 +1,5 @@
-﻿using Login.Data;
+﻿using System.Runtime.InteropServices.JavaScript;
+using Login.Data;
 using Login.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,12 +38,14 @@ public class LoginController : Controller
         
         
         var UserEntry = DateTime.Now.ToString();//variable global
-        var UserOut = DateTime.Now.ToString();
+        
 
         hora.EntryDate = DateTime.Now;
         hora.EmployeeId = usuario.Id;
         
         _context.Hours.Add(hora);
+
+        Console.WriteLine("Se agregó la hora");
         
         
         if (usuario != null)
@@ -83,7 +86,9 @@ public class LoginController : Controller
             HttpContext.Response.Cookies.Append("UserAuth", id, cookieOptions);
             HttpContext.Response.Cookies.Append("NameUser", usuario.Names, cookieOptions);
             HttpContext.Response.Cookies.Append("Hour", UserEntry, cookieOptions);
-            HttpContext.Response.Cookies.Append("HourOut", UserOut, cookieOptions);
+            HttpContext.Response.Cookies.Append("EmployeeId", usuario.Id.ToString(), cookieOptions);
+
+            
             
             _context.SaveChanges();
             
@@ -98,22 +103,45 @@ public class LoginController : Controller
 
     }
     
-    public async Task<IActionResult> Logout()
+    public async Task<IActionResult> Logout(Hour exit)
     {
         
-        //Limpiamos cookies
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        
-        HttpContext.Response.Cookies.Delete("UserAuth");
-        HttpContext.Response.Cookies.Delete("NameUser");
-        HttpContext.Response.Cookies.Delete("Hour");
-        HttpContext.Response.Cookies.Delete("HourOut");
-        HttpContext.Session.Clear();
-        
-        //Borramos el caché de la sesión
 
+        if (HttpContext.Request.Cookies.TryGetValue("EmployeeId", out string employeeIdString))
+        {
+            if (int.TryParse(employeeIdString, out int employeeId))
+            {
+                Console.WriteLine(employeeId);
+                var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Id == employeeId);
+                
+                if (employee != null)
+                {
+                    exit.OutDate = DateTime.Now;
+                    exit.EmployeeId = employee.Id;
+
+                
+                
+                    //Limpiamos cookies
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         
-        _context.SaveChanges();
+                    HttpContext.Response.Cookies.Delete("UserAuth");
+                    HttpContext.Response.Cookies.Delete("NameUser");
+                    HttpContext.Response.Cookies.Delete("Hour");
+                    HttpContext.Session.Remove("Sesion");
+                    
+                
+
+                    _context.Update(exit);
+                    await _context.SaveChangesAsync();
+                    
+                    
+                    return RedirectToAction("Index", "Login");
+                }
+            }
+        }
+
+        ViewBag.ErrorMessage = "Employee not found";
         return RedirectToAction("Index", "Login");
+
     }
 }
