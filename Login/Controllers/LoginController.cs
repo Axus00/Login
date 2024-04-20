@@ -95,13 +95,11 @@ public class LoginController : Controller
             return RedirectToAction("Index", "Login");
         }
         
-        
 
     }
     
     public async Task<IActionResult> Logout()
     {
-        
         
         //Limpiamos cookies
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

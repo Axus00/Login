@@ -22,23 +22,51 @@
       }   
   }
   
-  <table class="table table-striped table-bordered table-hover text-center">
-        <thead class="table table-dark">
-            <tr>
-                <td>Entry hour</td>
-                <td>Departure hour</td>    
-            </tr>
-        </thead>
-        <tbody>
-        @foreach (var e in Model)
-        {
-            <tr>
-                <td>@e.EntryDate</td>
-                <td>@e.OutDate</td>
-            </tr>
-        }
-        </tbody>
-    </table>
+  <div class="container-table d-flex gap-2">
+      <table class="table table-striped table-bordered table-hover text-center">
+          <thead class="table table-dark">
+          <tr>
+              <td>Entry hour</td>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach (var e in Model)
+          {
+              if (@e.EntryDate != null)
+              {
+                  <tr>
+                      <td>@e.EntryDate</td>
+                  </tr>
+              }
+             
+          }
+          </tbody>
+      </table>
+      
+      <table class="table table-striped table-bordered table-hover text-center">
+          <thead class="table table-dark">
+          <tr>
+              <td>Departure hour</td>    
+          </tr>
+          </thead>
+          <tbody>
+          @foreach (var e in Model)
+          {
+              if (@e.OutDate != null)
+                {
+                    <tr>
+                        <td>@e.OutDate</td>
+                    </tr>
+                }
+              
+          }
+          </tbody>
+      </table>
+      
+      
+  </div>
+  
+
 
   <div class="area"></div>
         <nav class="main-menu nav">

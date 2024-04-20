@@ -181,4 +181,9 @@ nav ul,nav li {
   src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
 }
 
+.container-table{
+  display: grid;
+  grid-auto-column: repeat(2, 1fr);
+  gap: 1rem;
+}
 
