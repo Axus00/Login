@@ -25,6 +25,15 @@ public class HomeController : Controller
         var UserName = HttpContext.Request.Cookies["NameUser"];
         var Hour = HttpContext.Request.Cookies["Hour"];
         
+        //obtenemos la sesión
+        string nombreId = HttpContext.Session.GetString("Sesion");
+
+
+        /*if (nombreId == null)
+        {
+            return RedirectToAction("Index", "Login");
+        }*/
+        
         @ViewBag.saveCookie = cookie;
         @ViewBag.User = UserName;
         @ViewBag.saveEntry = Hour;

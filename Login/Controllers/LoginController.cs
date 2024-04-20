@@ -30,9 +30,10 @@ public class LoginController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult>  Login(string email, string password, Hour hora, Hour hourOut)
+    public async Task<IActionResult>  Login(string email, string password, Hour hora)
     {
         var usuario = await _context.Employees.FirstOrDefaultAsync(e => e.Email == email && e.Password == password);
+
         
         
         var UserEntry = DateTime.Now.ToString();//variable global
@@ -40,19 +41,9 @@ public class LoginController : Controller
 
         hora.EntryDate = DateTime.Now;
         hora.EmployeeId = usuario.Id;
-
-        hourOut.OutDate = DateTime.Now;
-        hourOut.EmployeeId = usuario.Id;
         
         _context.Hours.Add(hora);
-        _context.Hours.Update(hourOut);
         
-        //Objeto para Employee
-        Hour hour = new Hour()
-        {
-            EntryDate = DateTime.Now,
-            OutDate = null
-        };
         
         if (usuario != null)
         {
@@ -75,10 +66,6 @@ public class LoginController : Controller
             //Configuración de la session caché
             HttpContext.Session.SetString("Sesion", usuario.Id.ToString());
             
-            Employee information = new()
-            {
-                Names = usuario.Names
-            };
             
             //configuración de las cookies
             var cookieOptions = new CookieOptions
@@ -115,6 +102,7 @@ public class LoginController : Controller
     public async Task<IActionResult> Logout()
     {
         
+        
         //Limpiamos cookies
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         
@@ -122,10 +110,10 @@ public class LoginController : Controller
         HttpContext.Response.Cookies.Delete("NameUser");
         HttpContext.Response.Cookies.Delete("Hour");
         HttpContext.Response.Cookies.Delete("HourOut");
-        HttpContext.Session.Remove("sesion");
+        HttpContext.Session.Clear();
         
         //Borramos el caché de la sesión
-        
+
         
         _context.SaveChanges();
         return RedirectToAction("Index", "Login");
